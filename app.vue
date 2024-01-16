@@ -45,6 +45,7 @@ export default {
       inputTodo: "",
     };
   },
+  
   methods: {
     addTodo() {
       if (this.inputTodo == "") {
