@@ -45,18 +45,27 @@ export default {
       inputTodo: "",
     };
   },
-  
+  mounted(){
+    this.getTasks();
+  },
   methods: {
+    getTasks(){
+      this.$http.get('/task/').then((res)=>{
+        thiss.todoLists = res.task;
+      });
+    },
+
     addTodo() {
       if (this.inputTodo == "") {
         alert("Please enter your task");
       } else {
-        this.todoLists.push({
-          value: this.inputTodo,
-          isCompleted: false,
-        });
-
-        this.inputTodo = "";
+       this.$http.post('/task/add',{
+        body:{
+          text:this.inputTodo,
+        }
+       }).then((res )=> {
+        this.getTasks();
+       })
       }
     },
     removeTodo(index) {
